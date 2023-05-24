@@ -1,14 +1,14 @@
 #include "simple_shell.h"
 
 /**
- * _myexit - exits the shell
+ * _exit - exits the shell
  * @info: structure containing poterntail arguments. Used to maintain constant
  * function prototype.
  * Return: exits with a given exit status
  * (0) if info.argv[0] != "exit"
  */
 
-int _myexit(st_info_t *info)
+int _exit(st_info_t *info)
 {
 	int exitcheck;
 
