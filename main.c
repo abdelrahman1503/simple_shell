@@ -1,50 +1,33 @@
 #include "simple_shell.h"
 
-/**
- * main - The entry point for the simple shell program
- * @argc: The number of command line arguments
- * @argv: An array of command line argument strings
- *
- * Return: 0 on success, 1 on failure
- */
-int main(int argc, char **argv)
+int main(void)
 {
-	char cmd[MAX_CMD_LENGTH];
-
+	char buffer[BUFFER_SIZE];
+	char *args[2];
+	int status;
+	
 	while (1)
 	{
-		printf("simple_shell$");
-		if (fgets(cmd, MAX_CMD_LENGTH, stdin) == NULL)
-		{
-			printf("\n");
-			break;
-		}
-		/*Remove trailing newline character*/
-		cmd[strcspn(cmd, "\n")] = '\0';
+		prompt_user(buffer);
 
-		/*Check for built-in commands*/
-		if (strcmp(cmd, "cd") == 0)
-		{
-			/*Handle cd command*/
-			handle_cd_command();
-			continue;
-		} else if (strcmp(cmd, "exit") == 0)
-		{
-		/*Handle exit command*/
-			handle_exit_command();
-			continue;
-		} else if (strcmp(cmd, "env") == 0)
-		{
-			/*Handle env command*/
-			handle_env_command();
-			continue;
-		}
+		args[0] = buffer;
+		args[1] = NULL;
 
-		/*Execute command*/
-		if (!execute_command(cmd))
+		pid_t pid = fork();
+		if (pid < 0)
 		{
-			continue;
+			perror("fork");
+			exit(EXIT_FAILURE);
+		}
+		else if (pid == 0);
+		{
+			execute_command(args);
+			exit(EXIT_SUCCESS);
+		}
+		else
+		{
+			wait_for_child_process(pid, &status);
 		}
 	}
-	return (0);
+	return EXIT_SUCCESS;
 }

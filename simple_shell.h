@@ -3,18 +3,14 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
-#include <errno.h>
 #include <string.h>
-#include <sys/types.h>
+#include <unistd.h>
+#include <sys/wait.h>
 
-#define MAX_CMD_LENGTH 1024
-#define MAX_ARGS 32
-
+#define BUFFER_SIZE 1024
 /* Function decleration */
-int execute_command(char *cmd);
-void handle _cd_command(void);
-void handle_exit_command(void);
-void handle_env_command(void);
-void handle_pwd_command(void);
-#endif /*SIMPLE_SHELL_H*/
+void prompt_user(char *buffer);
+void execute_command(char **args);
+void wait_for_child_process (pid_t pid, int *status);
+
+#endif /* SIMPLE_SHELL_H */
