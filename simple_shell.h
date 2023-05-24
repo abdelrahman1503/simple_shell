@@ -48,7 +48,7 @@ typedef struct liststr
 	int num;
 	char *str;
 	struct liststr *next;
-} st_list_t;
+}st_list_t;
 
 /**
  * struct passinfo - contains pseudo-arguements to pass into a function,
@@ -93,7 +93,7 @@ typedef struct passinfo
 	int cmd_buf_type; /* CMD_type ||, &&, ; */
 	int readfd;
 	int histcount;
-} st_info_t;
+}st_info_t;
 
 #define INFO_INIT \
 {NULL, NULL, NULL, 0, 0, 0, 0, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, \
@@ -107,8 +107,8 @@ typedef struct passinfo
 typedef struct builtin
 {
 	char *type;
-	int (*func)(info_t *);
-} st_builtin_table;
+	int (*func)(st_info_t *);
+}st_builtin_table;
 
 
 /* toem_shloop.c */
@@ -222,7 +222,7 @@ void free_list(st_list_t **);
 size_t list_len(const st_list_t *);
 char **list_to_strings(st_list_t *);
 size_t print_list(const st_list_t *);
-list_t *node_starts_with(st_list_t *, char *, char);
+st_list_t *node_starts_with(st_list_t *, char *, char);
 ssize_t get_node_index(st_list_t *, st_list_t *);
 
 /* toem_vars.c */
