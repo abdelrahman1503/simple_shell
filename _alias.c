@@ -6,7 +6,7 @@
  *          constant function prototype.
  *  Return: Always 0
  */
-int _alias(st_info_t *info)
+int _myalias(st_info_t *info)
 {
 	int i = 0;
 	char *p = NULL;

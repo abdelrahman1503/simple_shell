@@ -8,7 +8,7 @@
  * @value: the string env var value
  *  Return: Always 0
  */
-int _setenv(st_info_t *info, char *var, char *value)
+int _mysetenv(st_info_t *info, char *var, char *value)
 {
 	char *buf = NULL;
 	st_list_t *node;

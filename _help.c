@@ -5,7 +5,7 @@
  * constant function prototype.
  * Return: Always 0
  */
-int _help(st_info_t *info)
+int _myhelp(st_info_t *info)
 {
 	char **arg_array;
 

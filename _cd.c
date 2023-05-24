@@ -6,7 +6,7 @@
  * Return: Always 0
  */
 
-int _cd(st_info_t *info)
+int _mycd(st_info_t *info)
 {
 	char *s, *dir, buffer[1024];
 	int chdir_ret;

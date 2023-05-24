@@ -8,7 +8,7 @@
  *  Return: Always 0
  */
 
-int _history(st_info_t *info)
+int _myhistory(st_info_t *info)
 {
 	print_list(info->history);
 	return (0);

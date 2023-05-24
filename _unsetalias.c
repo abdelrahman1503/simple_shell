@@ -6,7 +6,7 @@
  *        constant function prototype.
  * Return: Always 0
  */
-int _unsetenv(st_info_t *info)
+int _myunsetenv(st_info_t *info)
 {
 	int i;
 
