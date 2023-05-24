@@ -1,6 +1,10 @@
 #include "simple_shell.h"
 #include <string.h>
 #include <stdlib.h>
+#include <unistd.h>
+#include <sys/wait.h>
+#include <readline/readline.h>
+#include <readline/history.h>
 
 extern char **environ;
 
@@ -9,23 +13,30 @@ void run_shell(void)
     pid_t child_pid;
     int status;
     char *command;
-    size_t command_size = 0;
 
     while (1)
     {
-        printf("$ ");
-        fflush(stdout);
+        char *cwd = getcwd(NULL, 0);
+        char *prompt = malloc(strlen(cwd) + 10);
+        sprintf(prompt, "%s# ", cwd);
+        free(cwd);
 
-        command = NULL;
-        if (getline(&command, &command_size, stdin) == -1)
+        command = readline(prompt);
+        free(prompt);
+
+        if (command == NULL)
         {
             printf("\n");
-            free(command);
             exit(EXIT_SUCCESS);
         }
 
-        /* Remove newline character from command */
-        command[strcspn(command, "\n")] = '\0';
+        if (strlen(command) == 0)
+        {
+            free(command);
+            continue;
+        }
+
+        add_history(command);
 
         child_pid = fork();
         if (child_pid == -1)
@@ -36,10 +47,11 @@ void run_shell(void)
         if (child_pid == 0)
         {
             /* Child process */
-            char **argv = malloc(sizeof(char *) * 2);
-            argv[0] = command;
-            argv[1] = NULL;
-            if (execve(command, argv, environ) == -1)
+            char **argv = malloc(sizeof(char *) * 3);
+            argv[0] = strtok(command, " ");
+            argv[1] = strtok(NULL, " ");
+            argv[2] = NULL;
+            if (execve(argv[0], argv, environ) == -1)
             {
                 perror("Error executing command");
                 exit(EXIT_FAILURE);
