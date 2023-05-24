@@ -11,7 +11,7 @@
 int _setenv(st_info_t *info, char *var, char *value)
 {
 	char *buf = NULL;
-	list_t *node;
+	st_list_t *node;
 	char *p;
 
 	if (!var || !value)

@@ -1,12 +1,12 @@
 #include "simple_shell.h"
 
 /**
- * _eputs - prints an input string
+ * _puts - prints an input string
  * @str: the string to be printed
  *
  * Return: Nothing
  */
-void _eputs(char *str)
+void _puts(char *str)
 {
 	int i = 0;
 
@@ -14,7 +14,7 @@ void _eputs(char *str)
 		return;
 	while (str[i] != '\0')
 	{
-		_eputchar(str[i]);
+		_putchar(str[i]);
 		i++;
 	}
 }

@@ -8,7 +8,7 @@
  */
 char *_getenv(st_info_t *info, const char *name)
 {
-	list_t *node = info->env;
+	st_list_t *node = info->env;
 	char *p;
 
 	while (node)
